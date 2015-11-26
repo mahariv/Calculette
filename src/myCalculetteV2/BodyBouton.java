@@ -5,6 +5,7 @@ import myCalculetteV2.Boutons;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 import java.util.Stack;
 
 /**
@@ -100,7 +101,7 @@ public class BodyBouton {
                     try {
                         String temp_lifo = lifo.pop();
                         lifo.add(temp_lifo);
-                        if (temp_lifo == " + " || temp_lifo == " - " || temp_lifo == " X " || temp_lifo == " / ")
+                        if (temp_lifo == " + " || temp_lifo == " - " || temp_lifo == " X " || temp_lifo == " / " || temp_lifo ==" pow ")
                         {
                             System.out.println("il faut qu'il ait un chiffre entre deux operateurs");
                         }
@@ -157,7 +158,7 @@ public class BodyBouton {
                     indicVirgul = tailleChiffre;
                     System.out.println("indicVirgul = " + indicVirgul);
                 }
-                if (temp == " + " || temp == " - " || temp == " X " || temp == " / ") {
+                if (temp == " + " || temp == " - " || temp == " X " || temp == " / " || temp == " pow ") {
                     System.out.println("op use et indicvirg = " + indicVirgul);
                     if( indicVirgul != 0)
                     {
@@ -193,4 +194,20 @@ public class BodyBouton {
         return rebackLifo;
     }
 
+    public void Action6(Boutons bt, JLabel lab) {
+        bt.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String lotonum ="";
+                for (int i = 0; i< 12; i++)
+                {
+                    Random rand = new Random();
+                    int nombre = rand.nextInt(10);
+                    lotonum += Integer.toString(nombre);
+                }
+                lab.setText(lotonum);
+
+            }
+        });
+    }
 }

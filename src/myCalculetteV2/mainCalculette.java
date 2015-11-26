@@ -80,12 +80,12 @@ public class mainCalculette {
         Boutons bouton_4 = new Boutons("4");
         Boutons bouton_5 = new Boutons("5");
         Boutons bouton_6 = new Boutons("6");
-        Boutons bouton_parOuvr = new Boutons("(");
+        Boutons bouton_pow = new Boutons("pow");
 
         bodyPanel.add(bouton_4);
         bodyPanel.add(bouton_5);
         bodyPanel.add(bouton_6);
-        bodyPanel.add(bouton_parOuvr);
+        bodyPanel.add(bouton_pow);
 
         /*-------------------------------------------------------------*/
 
@@ -93,13 +93,13 @@ public class mainCalculette {
         Boutons bouton_7 = new Boutons("7");
         Boutons bouton_8 = new Boutons("8");
         Boutons bouton_9 = new Boutons("9");
-        Boutons bouton_parFerm = new Boutons(")");
+        Boutons bouton_rd = new Boutons("rd");
 
 
         bodyPanel.add(bouton_7);
         bodyPanel.add(bouton_8);
         bodyPanel.add(bouton_9);
-        bodyPanel.add(bouton_parFerm);
+        bodyPanel.add(bouton_rd);
 
         /*-------------------------------------------------*/
 
@@ -143,11 +143,13 @@ public class mainCalculette {
         bodyB.Action_4(bouton_moins, " - ", affichageRes, lifo);
         bodyB.Action_4(bouton_div, " / ", affichageRes, lifo);
         bodyB.Action_4(bouton_fois, " X ", affichageRes, lifo);
+        bodyB.Action_4(bouton_pow, " pow ", affichageRes, lifo);
 
         //-------------------------operateurSpeciaux-------------//
 
         bodyB.Action_3(bouton_mclear, affichageRes, lifo);
 
+        bodyB.Action6(bouton_rd,affichageRes);
 
         bouton_clear.addActionListener(new ActionListener() {
             @Override
@@ -159,7 +161,7 @@ public class mainCalculette {
                         String temp = affichageRes.getText();
                         String temp_lifo = lifo.pop();
                         System.out.println(temp_lifo);
-                        if (temp_lifo == " + " || temp_lifo == " - " || temp_lifo == " X " || temp_lifo == " / ") {
+                        if (temp_lifo == " + " || temp_lifo == " - " || temp_lifo == " X " || temp_lifo == " / " || temp_lifo ==" pow ") {
                             temp = temp.substring(0, temp.length() - 3);  // permet d afficher la chaine sans les 3 derniers caractere
                         } else {
                             temp = temp.substring(0, temp.length() - 1);  // permet d afficher la chaine sans le dernier caractere
@@ -184,7 +186,7 @@ public class mainCalculette {
                                                while (!rebackLifo.isEmpty()) {
                                                    temp_val = rebackLifo.pop();
                                                    System.out.println(temp_val);
-                                                   if (temp_val == " + " || temp_val == " - " || temp_val == " X " || temp_val == " / ") {
+                                                   if (temp_val == " + " || temp_val == " - " || temp_val == " X " || temp_val == " / " || temp_val == " pow ") {
                                                        switch (temp_val) {
                                                            case " + ":
                                                                resultat = resultat + Double.valueOf(rebackLifo.pop());
@@ -197,6 +199,9 @@ public class mainCalculette {
                                                                break;
                                                            case " / ":
                                                                resultat = resultat / Double.valueOf(rebackLifo.pop());
+                                                               break;
+                                                           case " pow ":
+                                                               resultat =  Math.pow(resultat,Double.valueOf(rebackLifo.pop()));
                                                                break;
                                                            default :
                                                                break;
