@@ -20,6 +20,27 @@ public class BodyBouton {
         bt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(!lifo.isEmpty())
+                {
+                    String val_temp= lifo.pop();
+                    if (val_temp =="e")
+                    {
+                        lab.setText("");
+                        lifo.clear();
+                        lifo.add("0");
+                    }
+                    else
+                        lifo.add(val_temp);
+                    if(val_temp =="0")
+                    {
+                        System.out.println(lifo.pop());
+                        if (lifo.isEmpty())
+                        {
+                            lab.setText("");
+                        }
+
+                    }
+                }
                 String temp = lab.getText();
                 String Val = value;
                 lab.setText(temp + Val);
@@ -71,6 +92,11 @@ public class BodyBouton {
                     System.out.println("Erreur il faut d'abord renseigner un nombre");
                 }
                 else {
+                    String val_temp = lifo.pop();
+                    if (val_temp != "e")
+                    {
+                        lifo.add(val_temp);
+                    }
                     try {
                         String temp_lifo = lifo.pop();
                         lifo.add(temp_lifo);
@@ -92,6 +118,8 @@ public class BodyBouton {
             }
         });
     }
+
+
 
     public int resultExe(Stack<String> lifo)
     {

@@ -19,9 +19,11 @@ import java.util.Stack;
  * Created by jeremy on 12/11/2015.
  */
 public class mainCalculette {
+    static int indic_equal = 0;
 
     public static void main(String[] args)
     {
+
         int hauteur = 800;
         int largeur = 600;
         BodyBouton bodyB = new BodyBouton();
@@ -175,7 +177,7 @@ public class mainCalculette {
         bouton_equal.addActionListener(new ActionListener() {
                                            @Override
                                            public void actionPerformed(ActionEvent e) {
-
+                                               indic_equal = 1;
                                                Stack<String> rebackLifo = bodyB.RebackLifo(lifo);
                                                double resultat = 0;
                                                String temp_val = "";
@@ -207,13 +209,14 @@ public class mainCalculette {
 
                                                String stringRes = String.valueOf(resultat);
                                                lifo.add(stringRes);
+                                               lifo.add("e");
                                                affichageRes.setText(stringRes);
                                            }
                                        }
         );
 
-            affichage.setVisible(true);
-            affichageRes.setVisible(true);
+        affichage.setVisible(true);
+        affichageRes.setVisible(true);
             bodyPanel.setVisible(true);
             myFenetre.setVisible(true);
 
