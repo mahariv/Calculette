@@ -135,6 +135,7 @@ public class BodyBouton {
         String tempCalc = "";
         int indic = 1;
         int indicVirgul = 0;
+        int indicOpSpe = 0; // cosinus sinus tan
         int tailleChiffre = 0;
         Stack<String> rebackLifo = new Stack<String>();
 
@@ -144,26 +145,28 @@ public class BodyBouton {
 
             if (temp == ".")
             {
-                System.out.println("chiffre apres la virgule :" + resultat + " nb chiffre :" + tailleChiffre);
-
-                indicVirgul = tailleChiffre;
-                System.out.println("indicVirgul = " + indicVirgul);
+                if(indicVirgul == 0) {
+                    System.out.println("chiffre apres la virgule :" + resultat + " nb chiffre :" + tailleChiffre);
+                    indicVirgul = tailleChiffre;
+                    System.out.println("indicVirgul = " + indicVirgul);
+                }else
+                {System.out.println("un chiffre ne peut avoir qu'une virgule");}
             }
 
             else {
-                if (temp == ".")
-                {
-                    System.out.println("chiffre apres la virgule :" + resultat + " nb chiffre :" + tailleChiffre);
-
-                    indicVirgul = tailleChiffre;
-                    System.out.println("indicVirgul = " + indicVirgul);
-                }
                 if (temp == " + " || temp == " - " || temp == " X " || temp == " / " || temp == " pow ") {
                     System.out.println("op use et indicvirg = " + indicVirgul);
+
                     if( indicVirgul != 0)
                     {
                         System.out.println("1    " + resultat);
-                        resultat = (resultat / Math.pow(10, indicVirgul));
+                        // si on a un operateur speciale a la fin cette fonction ne doit pas etre utilisé
+                        // sinon le resultat sera faussé a cause d'un decalage de la virgule
+                        // car le decalage deja etait effecué precedement lors du calcule de l operateur special
+                        if (indicOpSpe != 1) {
+                            resultat = (resultat / Math.pow(10, indicVirgul));
+                            System.out.println("2 bis    " + resultat);
+                        }
                         System.out.println("2    " + resultat);
                         indicVirgul = 0 ;
                     }
@@ -175,22 +178,61 @@ public class BodyBouton {
                     resultat = 0;
                     tailleChiffre = 0;
                 } else {
-                        resultat += indic * Double.valueOf(temp);
-                        indic *= 10;
-                        tailleChiffre++;
+                        if (temp == " cos " || temp == " sin " || temp == " tan " || temp == " exp ") {
+                            indicOpSpe = 1;
+                            resultat = (resultat / Math.pow(10, indicVirgul));
+                            System.out.println("le resultat avant "+ temp +"  "+ resultat);
+                            switch (temp)
+                            {
+                                case " cos ":
+                                    resultat = Math.cos(Double.valueOf(resultat));
+                                    break;
+                                case " sin ":
+                                    resultat = Math.sin(Double.valueOf(resultat));
+                                    break;
+                                case " tan ":
+                                    resultat = Math.tan(Double.valueOf(resultat));
+                                    break;
+                                case " exp ":
+                                    resultat = Math.exp(Double.valueOf(resultat));
+                                    break;
+                            }
+
+                            //resultat = Math.cos(Double.valueOf(resultat));
+                            System.out.println("le resultat apres "+ temp +" " + resultat);
+
+                        }
+                        else
+                        {
+                            resultat += indic * Double.valueOf(temp);
+                            indic *= 10;
+                            tailleChiffre++;
+                        }
                     }
                 }
+
             }
+
+        //--------------------------------------------------------------------------
+
+        // Cette partie concerne le traitement du dernier chiffre de la pile
         if( indicVirgul != 0)
         {
             System.out.println(" non op use et indicvirg = " + indicVirgul);
-            System.out.println("1    " + resultat);
-            resultat = (resultat / Math.pow(10, indicVirgul));
-            System.out.println("2    " + resultat);
+            System.out.println("1 bis    " + resultat);
+            // si on a un operateur speciale a la fin cette fonction ne doit pas etre utilisé
+            // sinon le resultat sera faussé a cause d'un decalage de la virgule
+            // car le decalage deja etait effecué precedement lors du calcule de l operateur special
+            if (indicOpSpe != 1) {
+                resultat = (resultat / Math.pow(10, indicVirgul));
+                System.out.println("2 bis    " + resultat);
+            }
             indicVirgul = 0 ;
         }
+
         rebackLifo.add(String.valueOf(resultat));
         System.out.println(String.valueOf(resultat));
+        //----------------------------------------------------------------------------
         return rebackLifo;
     }
 

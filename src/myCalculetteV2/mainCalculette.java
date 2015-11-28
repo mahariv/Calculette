@@ -48,18 +48,20 @@ public class mainCalculette {
 
         affichage.add(affichageRes);
 
-        bodyPanel.setLayout(new GridLayout(5,4));
+        bodyPanel.setLayout(new GridLayout(5,5));
         bodyPanel.setBackground(Color.lightGray);
 
         Boutons bouton_clear = new Boutons("C");
         Boutons bouton_plus = new Boutons("+");
         Boutons bouton_div = new Boutons("/");
         Boutons bouton_fois = new Boutons("X");
+        Boutons bouton_alpha1 = new Boutons("cos");
 
         bodyPanel.add(bouton_clear);
         bodyPanel.add(bouton_plus);
         bodyPanel.add(bouton_div);
         bodyPanel.add(bouton_fois);
+        bodyPanel.add(bouton_alpha1);
 
 
 
@@ -69,11 +71,13 @@ public class mainCalculette {
         Boutons bouton_2 = new Boutons("2");
         Boutons bouton_3 = new Boutons("3");
         Boutons bouton_moins = new Boutons("-");
+        Boutons bouton_alpha2 = new Boutons("sin");
 
         bodyPanel.add(bouton_1);
         bodyPanel.add(bouton_2);
         bodyPanel.add(bouton_3);
         bodyPanel.add(bouton_moins);
+        bodyPanel.add(bouton_alpha2);
 
         /*------ligne 2 --------------------------------*/
 
@@ -81,11 +85,13 @@ public class mainCalculette {
         Boutons bouton_5 = new Boutons("5");
         Boutons bouton_6 = new Boutons("6");
         Boutons bouton_pow = new Boutons("pow");
+        Boutons bouton_alpha3 = new Boutons("tan");
 
         bodyPanel.add(bouton_4);
         bodyPanel.add(bouton_5);
         bodyPanel.add(bouton_6);
         bodyPanel.add(bouton_pow);
+        bodyPanel.add(bouton_alpha3);
 
         /*-------------------------------------------------------------*/
 
@@ -94,12 +100,13 @@ public class mainCalculette {
         Boutons bouton_8 = new Boutons("8");
         Boutons bouton_9 = new Boutons("9");
         Boutons bouton_rd = new Boutons("rd");
-
+        Boutons bouton_alpha4 = new Boutons("exp");
 
         bodyPanel.add(bouton_7);
         bodyPanel.add(bouton_8);
         bodyPanel.add(bouton_9);
         bodyPanel.add(bouton_rd);
+        bodyPanel.add(bouton_alpha4);
 
         /*-------------------------------------------------*/
 
@@ -107,12 +114,13 @@ public class mainCalculette {
         Boutons bouton_0 = new Boutons("0");
         Boutons bouton_mclear = new Boutons("MC");
         Boutons bouton_equal = new Boutons("=");
-
+        Boutons bouton_alpha5 = new Boutons("%");
 
         bodyPanel.add(bouton_point);
         bodyPanel.add(bouton_0);
         bodyPanel.add(bouton_mclear);
         bodyPanel.add(bouton_equal);
+        bodyPanel.add(bouton_alpha5);
 
 
 
@@ -145,7 +153,14 @@ public class mainCalculette {
         bodyB.Action_4(bouton_fois, " X ", affichageRes, lifo);
         bodyB.Action_4(bouton_pow, " pow ", affichageRes, lifo);
 
+
         //-------------------------operateurSpeciaux-------------//
+
+        bodyB.Action_1(bouton_alpha1, " cos ", affichageRes, lifo);
+        bodyB.Action_1(bouton_alpha2, " sin ",affichageRes, lifo);
+        bodyB.Action_1(bouton_alpha3, " tan ",affichageRes, lifo);
+        bodyB.Action_1(bouton_alpha4, " exp ", affichageRes, lifo);
+
 
         bodyB.Action_3(bouton_mclear, affichageRes, lifo);
 
