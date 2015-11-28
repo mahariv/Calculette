@@ -178,7 +178,7 @@ public class BodyBouton {
                     resultat = 0;
                     tailleChiffre = 0;
                 } else {
-                        if (temp == " cos " || temp == " sin " || temp == " tan " || temp == " exp ") {
+                        if (temp == " cos " || temp == " sin " || temp == " tan " || temp == " exp " || temp == " ln ") {
                             indicOpSpe = 1;
                             resultat = (resultat / Math.pow(10, indicVirgul));
                             System.out.println("le resultat avant "+ temp +"  "+ resultat);
@@ -195,6 +195,9 @@ public class BodyBouton {
                                     break;
                                 case " exp ":
                                     resultat = Math.exp(Double.valueOf(resultat));
+                                    break;
+                                case " ln ":
+                                    resultat = Math.log(Double.valueOf(resultat));
                                     break;
                             }
 

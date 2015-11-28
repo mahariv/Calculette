@@ -39,14 +39,21 @@ public class mainCalculette {
         Stack<String> lifo = new Stack<String>();
 
         String resultat = "";
+        affichage.setLayout(new GridLayout(2, 1));
 
         JLabel affichageRes = new JLabel(resultat);
         affichageRes.setFont(new Font("Arial", Font.BOLD, 20));
 
+        JLabel affichageHistory = new JLabel();
+        affichageHistory.setFont(new Font("Arial", Font.ITALIC, 20));
+
         /*TextField affichageRes = new TextField(); */
         affichageRes.setPreferredSize(new Dimension(largeur,50));
+        affichageHistory.setPreferredSize(new Dimension(largeur, 50));
 
+        affichage.add(affichageHistory);
         affichage.add(affichageRes);
+
 
         bodyPanel.setLayout(new GridLayout(5,5));
         bodyPanel.setBackground(Color.lightGray);
@@ -114,7 +121,7 @@ public class mainCalculette {
         Boutons bouton_0 = new Boutons("0");
         Boutons bouton_mclear = new Boutons("MC");
         Boutons bouton_equal = new Boutons("=");
-        Boutons bouton_alpha5 = new Boutons("%");
+        Boutons bouton_alpha5 = new Boutons("ln");
 
         bodyPanel.add(bouton_point);
         bodyPanel.add(bouton_0);
@@ -158,13 +165,14 @@ public class mainCalculette {
 
         bodyB.Action_1(bouton_alpha1, " cos ", affichageRes, lifo);
         bodyB.Action_1(bouton_alpha2, " sin ",affichageRes, lifo);
-        bodyB.Action_1(bouton_alpha3, " tan ",affichageRes, lifo);
+        bodyB.Action_1(bouton_alpha3, " tan ", affichageRes, lifo);
         bodyB.Action_1(bouton_alpha4, " exp ", affichageRes, lifo);
+        bodyB.Action_1(bouton_alpha5, " ln ", affichageRes, lifo);
 
 
         bodyB.Action_3(bouton_mclear, affichageRes, lifo);
 
-        bodyB.Action6(bouton_rd,affichageRes);
+        bodyB.Action6(bouton_rd, affichageRes);
 
         bouton_clear.addActionListener(new ActionListener() {
             @Override
@@ -194,6 +202,7 @@ public class mainCalculette {
         bouton_equal.addActionListener(new ActionListener() {
                                            @Override
                                            public void actionPerformed(ActionEvent e) {
+                                               affichageHistory.setText(affichageRes.getText());
                                                indic_equal = 1;
                                                Stack<String> rebackLifo = bodyB.RebackLifo(lifo);
                                                double resultat = 0;
@@ -237,8 +246,11 @@ public class mainCalculette {
 
         affichage.setVisible(true);
         affichageRes.setVisible(true);
+        affichageHistory.setVisible(true);
             bodyPanel.setVisible(true);
             myFenetre.setVisible(true);
+
+        affichageHistory.setText("");
 
         affichageRes.setText("0");
         lifo.add("0");
