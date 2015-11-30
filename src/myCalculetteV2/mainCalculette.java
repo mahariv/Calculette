@@ -184,10 +184,17 @@ public class mainCalculette {
                         String temp = affichageRes.getText();
                         String temp_lifo = lifo.pop();
                         System.out.println(temp_lifo);
-                        if (temp_lifo == " + " || temp_lifo == " - " || temp_lifo == " X " || temp_lifo == " / " || temp_lifo ==" pow ") {
+                        if (temp_lifo == " + " || temp_lifo == " - " || temp_lifo == " X " || temp_lifo == " / ") {
                             temp = temp.substring(0, temp.length() - 3);  // permet d afficher la chaine sans les 3 derniers caractere
                         } else {
-                            temp = temp.substring(0, temp.length() - 1);  // permet d afficher la chaine sans le dernier caractere
+                            if (temp_lifo == " pow " || temp_lifo == " cos " || temp_lifo == " sin " || temp_lifo == " tan " || temp_lifo == " exp ") {
+                                temp = temp.substring(0, temp.length() - 5);
+                            } else {
+                                if (temp_lifo == " ln ") {
+                                    temp = temp.substring(0, temp.length() - 4);
+                                } else
+                                    temp = temp.substring(0, temp.length() - 1);  // permet d afficher la chaine sans le dernier caractere
+                            }
                         }
                         System.out.println(temp);
                         affichageRes.setText(temp);
@@ -206,38 +213,60 @@ public class mainCalculette {
                                                indic_equal = 1;
                                                Stack<String> rebackLifo = bodyB.RebackLifo(lifo);
                                                double resultat = 0;
+                                               double chiffre_temp;
+                                               String stringRes;
+                                               int indic_Div0 = 0;
                                                String temp_val = "";
                                                while (!rebackLifo.isEmpty()) {
                                                    temp_val = rebackLifo.pop();
                                                    System.out.println(temp_val);
-                                                   if (temp_val == " + " || temp_val == " - " || temp_val == " X " || temp_val == " / " || temp_val == " pow ") {
-                                                       switch (temp_val) {
-                                                           case " + ":
-                                                               resultat = resultat + Double.valueOf(rebackLifo.pop());
-                                                               break;
-                                                           case " - ":
-                                                               resultat = resultat - Double.valueOf(rebackLifo.pop());
-                                                               break;
-                                                           case " X ":
-                                                               resultat = resultat * Double.valueOf(rebackLifo.pop());
-                                                               break;
-                                                           case " / ":
-                                                               resultat = resultat / Double.valueOf(rebackLifo.pop());
-                                                               break;
-                                                           case " pow ":
-                                                               resultat =  Math.pow(resultat,Double.valueOf(rebackLifo.pop()));
-                                                               break;
-                                                           default :
-                                                               break;
+                                                   try {
+                                                       if (temp_val == " + " || temp_val == " - " || temp_val == " X " || temp_val == " / " || temp_val == " pow ") {
+                                                           switch (temp_val) {
+                                                               case " + ":
+                                                                   resultat = resultat + Double.valueOf(rebackLifo.pop());
+                                                                   break;
+                                                               case " - ":
+                                                                   resultat = resultat - Double.valueOf(rebackLifo.pop());
+                                                                   break;
+                                                               case " X ":
+                                                                   resultat = resultat * Double.valueOf(rebackLifo.pop());
+                                                                   break;
+                                                               case " / ":
+                                                                   chiffre_temp = Double.valueOf(rebackLifo.pop());
+                                                                   resultat = resultat / chiffre_temp;
+                                                                   if (chiffre_temp == 0) {
+                                                                       indic_Div0 = 1;
+                                                                   }
+                                                                   break;
+                                                               case " pow ":
+                                                                   resultat = Math.pow(resultat, Double.valueOf(rebackLifo.pop()));
+                                                                   break;
+                                                               default:
+                                                                   break;
+                                                           }
+                                                       } else {
+                                                           resultat += Double.valueOf(temp_val);
                                                        }
-                                                   } else {
-                                                       resultat += Double.valueOf(temp_val);
+                                                   } catch (Exception e1) {
+                                                       System.out.println(e1 + " Erreur sur les operateurs usuel");
                                                    }
 
                                                }
+                                               if (indic_Div0 == 1) {
+                                                   lifo.clear();
+                                                   stringRes = "erreur division par 0";
+                                               } else {
+                                                   stringRes = String.valueOf(resultat);
+                                                   if (stringRes == "NaN") {
+                                                       lifo.clear();
 
-                                               String stringRes = String.valueOf(resultat);
-                                               lifo.add(stringRes);
+                                                       stringRes = "cet operation n'est pas possible";
+                                                   } else {
+                                                       lifo.add(stringRes);
+
+                                                   }
+                                               }
                                                lifo.add("e");
                                                affichageRes.setText(stringRes);
                                            }

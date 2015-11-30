@@ -182,23 +182,27 @@ public class BodyBouton {
                             indicOpSpe = 1;
                             resultat = (resultat / Math.pow(10, indicVirgul));
                             System.out.println("le resultat avant "+ temp +"  "+ resultat);
-                            switch (temp)
+                            try {
+                                switch (temp) {
+                                    case " cos ":
+                                        resultat = Math.cos(Double.valueOf(resultat));
+                                        break;
+                                    case " sin ":
+                                        resultat = Math.sin(Double.valueOf(resultat));
+                                        break;
+                                    case " tan ":
+                                        resultat = Math.tan(Double.valueOf(resultat));
+                                        break;
+                                    case " exp ":
+                                        resultat = Math.exp(Double.valueOf(resultat));
+                                        break;
+                                    case " ln ":
+                                        resultat = Math.log(Double.valueOf(resultat));
+                                        break;
+                                }
+                            }catch (Exception e)
                             {
-                                case " cos ":
-                                    resultat = Math.cos(Double.valueOf(resultat));
-                                    break;
-                                case " sin ":
-                                    resultat = Math.sin(Double.valueOf(resultat));
-                                    break;
-                                case " tan ":
-                                    resultat = Math.tan(Double.valueOf(resultat));
-                                    break;
-                                case " exp ":
-                                    resultat = Math.exp(Double.valueOf(resultat));
-                                    break;
-                                case " ln ":
-                                    resultat = Math.log(Double.valueOf(resultat));
-                                    break;
+                                System.out.println(e + " Erreur sur les operateurs speciaux : cos , sin , tan , exp et ln");
                             }
 
                             //resultat = Math.cos(Double.valueOf(resultat));
